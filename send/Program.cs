@@ -1,7 +1,5 @@
 ﻿using Azure.Messaging.ServiceBus;
-using Azure.Identity;
 
-// name of your Service Bus queue
 // the client that owns the connection and can be used to create senders and receivers
 ServiceBusClient client;
 
@@ -15,18 +13,16 @@ const int numOfMessages = 3;
 // of the application, which is best practice when messages are being published or read
 // regularly.
 //
-// Set the transport type to AmqpWebSockets so that the ServiceBusClient uses the port 443. 
-// If you use the default AmqpTcp, ensure that ports 5671 and 5672 are open.
-var clientOptions = new ServiceBusClientOptions
+// set the transport type to AmqpWebSockets so that the ServiceBusClient uses the port 443. 
+// If you use the default AmqpTcp, you will need to make sure that the ports 5671 and 5672 are open
+
+// TODO: Replace the <NAMESPACE-CONNECTION-STRING> and <QUEUE-NAME> placeholders
+var clientOptions = new ServiceBusClientOptions()
 { 
     TransportType = ServiceBusTransportType.AmqpWebSockets
 };
-//TODO: Replace the "<NAMESPACE-NAME>" and "<QUEUE-NAME>" placeholders.
-client = new ServiceBusClient(
-    "<NAMESPACE-NAME>.servicebus.windows.net",
-    new DefaultAzureCredential(),
-    clientOptions);
-sender = client.CreateSender("<QUEUE-NAME>");
+client = new ServiceBusClient("<NAMESPACE-CONNECTION-STRING>", clientOptions);//
+sender = client.CreateSender("my-queue");//queue name needs to change
 
 // create a batch 
 using ServiceBusMessageBatch messageBatch = await sender.CreateMessageBatchAsync();
