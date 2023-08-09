@@ -16,3 +16,13 @@ sudo apt-get update && \
   dotnet new console
 
   dotnet add package Azure.Messaging.ServiceBus
+
+  https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-dotnet-get-started-with-queues?tabs=connection-string
+
+  dotnet build 
+
+  dotnet run
+
+  create two folders send and receive
+
+  
